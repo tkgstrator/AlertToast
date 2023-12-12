@@ -102,7 +102,7 @@ Then, use the `.toast` view modifier:
 
 **Parameters:**
 
-- `isPresenting`: (MUST) assign a `Binding<Bool>` to show or dismiss alert.
+- `isPresented`: (MUST) assign a `Binding<Bool>` to show or dismiss alert.
 - `duration`: default is 2, set 0 to disable auto dismiss.
 - `tapToDismiss`: default is `true`, set `false` to disable.
 - `alert`: (MUST) expects `AlertToast`.
@@ -124,7 +124,7 @@ struct ContentView: View{
                  showToast.toggle()
             }
         }
-        .toast(isPresenting: $showToast){
+        .toast(isPresented: $showToast){
 
             // `.alert` is the default displayMode
             AlertToast(type: .regular, title: "Message Sent!")
@@ -142,7 +142,7 @@ struct ContentView: View{
 #### Complete Modifier Example
 
 ```swift
-.toast(isPresenting: $showAlert, duration: 2, tapToDismiss: true, alert: {
+.toast(isPresented: $showAlert, duration: 2, tapToDismiss: true, alert: {
    //AlertToast goes here
 }, onTap: {
    //onTap would call either if `tapToDismis` is true/false
@@ -179,7 +179,7 @@ AlertStyle(backgroundColor: Color?,
 
 #### Alert dialog view modifier (with default settings):
 ```swift
-.toast(isPresenting: Binding<Bool>, duration: Double = 2, tapToDismiss: true, alert: () -> AlertToast , onTap: () -> (), completion: () -> () )
+.toast(isPresented: Binding<Bool>, duration: Double = 2, tapToDismiss: true, alert: () -> AlertToast , onTap: () -> (), completion: () -> () )
 ```
 
 #### Simple Text Alert:

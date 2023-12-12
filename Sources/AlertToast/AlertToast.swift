@@ -403,7 +403,7 @@ public struct AlertToast: View{
 public struct AlertToastModifier: ViewModifier{
     
     ///Presentation `Binding<Bool>`
-    @Binding var isPresenting: Bool
+    @Binding var isPresented: Bool
     
     ///Duration time to display the alert
     @State var duration: Double = 2
@@ -439,7 +439,7 @@ public struct AlertToastModifier: ViewModifier{
     
     @ViewBuilder
     public func main() -> some View{
-        if isPresenting{
+        if isPresented{
             
             switch alert().displayMode{
             case .alert:
@@ -449,7 +449,7 @@ public struct AlertToastModifier: ViewModifier{
                         if tapToDismiss{
                             withAnimation(Animation.spring()){
                                 self.workItem?.cancel()
-                                isPresenting = false
+                                isPresented = false
                                 self.workItem = nil
                             }
                         }
@@ -479,7 +479,7 @@ public struct AlertToastModifier: ViewModifier{
                         if tapToDismiss{
                             withAnimation(Animation.spring()){
                                 self.workItem?.cancel()
-                                isPresenting = false
+                                isPresented = false
                                 self.workItem = nil
                             }
                         }
@@ -495,7 +495,7 @@ public struct AlertToastModifier: ViewModifier{
                         if tapToDismiss{
                             withAnimation(Animation.spring()){
                                 self.workItem?.cancel()
-                                isPresenting = false
+                                isPresented = false
                                 self.workItem = nil
                             }
                         }
@@ -518,9 +518,9 @@ public struct AlertToastModifier: ViewModifier{
                     main()
                         .offset(y: offsetY)
                 }
-                            .animation(Animation.spring(), value: isPresenting)
+                            .animation(Animation.spring(), value: isPresented)
                 )
-                .valueChanged(value: isPresenting, onChange: { (presented) in
+                .valueChanged(value: isPresented, onChange: { (presented) in
                     if presented{
                         onAppearAction()
                     }
@@ -545,9 +545,9 @@ public struct AlertToastModifier: ViewModifier{
                         }
                                     .frame(maxWidth: screen.width, maxHeight: screen.height)
                                     .offset(y: offset)
-                                    .animation(Animation.spring(), value: isPresenting))
+                                    .animation(Animation.spring(), value: isPresented))
                 )
-                .valueChanged(value: isPresenting, onChange: { (presented) in
+                .valueChanged(value: isPresented, onChange: { (presented) in
                     if presented{
                         onAppearAction()
                     }
@@ -560,8 +560,8 @@ public struct AlertToastModifier: ViewModifier{
                 }
                             .frame(maxWidth: screen.width, maxHeight: screen.height, alignment: .center)
                             .edgesIgnoringSafeArea(.all)
-                            .animation(Animation.spring(), value: isPresenting))
-                .valueChanged(value: isPresenting, onChange: { (presented) in
+                            .animation(Animation.spring(), value: isPresented))
+                .valueChanged(value: isPresented, onChange: { (presented) in
                     if presented{
                         onAppearAction()
                     }
@@ -585,7 +585,7 @@ public struct AlertToastModifier: ViewModifier{
             
             let task = DispatchWorkItem {
                 withAnimation(Animation.spring()){
-                    isPresenting = false
+                    isPresented = false
                     workItem = nil
                 }
             }
@@ -678,8 +678,8 @@ public extension View{
     ///   - show: Binding<Bool>
     ///   - alert: () -> AlertToast
     /// - Returns: `AlertToast`
-    func toast(isPresenting: Binding<Bool>, duration: Double = 2, tapToDismiss: Bool = true, offsetY: CGFloat = 0, alert: @escaping () -> AlertToast, onTap: (() -> ())? = nil, completion: (() -> ())? = nil) -> some View{
-        modifier(AlertToastModifier(isPresenting: isPresenting, duration: duration, tapToDismiss: tapToDismiss, offsetY: offsetY, alert: alert, onTap: onTap, completion: completion))
+    func toast(isPresented: Binding<Bool>, duration: Double = 2, tapToDismiss: Bool = true, offsetY: CGFloat = 0, alert: @escaping () -> AlertToast, onTap: (() -> ())? = nil, completion: (() -> ())? = nil) -> some View{
+        modifier(AlertToastModifier(isPresented: isPresented, duration: duration, tapToDismiss: tapToDismiss, offsetY: offsetY, alert: alert, onTap: onTap, completion: completion))
     }
     
     /// Choose the alert background
